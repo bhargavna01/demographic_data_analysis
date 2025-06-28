@@ -1,0 +1,25 @@
+-- age calculation ---
+-- This query calculates the age of patients based on their date of birth.
+-- It extracts the year from the age and returns it along with patient details.
+-- It is useful for understanding the age distribution of patients in the database.    
+
+select patient_id, concat_ws(' ',first_name,last_name) as Name, date_of_birth,
+extract(year from age(date_of_birth)) as age
+from patients;
+       
+-- filers patients based on their age group --
+-- 0 to 18 years --
+--18 to 35 years--
+--35 to 60 years --
+--60 years and above --
+-- This query filters patients based on their age groups and returns their details.
+
+
+
+select patient_id, concat_ws(' ',first_name,last_name) as Name, date_of_birth,
+extract(year from age(date_of_birth)) as age
+from patients
+where extract(year from age(date_of_birth)) between 0 and 18
+   or extract(year from age(date_of_birth)) between 19 and 35
+   or extract(year from age(date_of_birth)) between 36 and 60
+   or extract(year from age(date_of_birth)) > 60;
