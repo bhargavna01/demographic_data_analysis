@@ -1,0 +1,7 @@
+-- Gender distribution --
+
+select gender, 
+       count(*) as total
+
+from patients
+GROUP BY gender;
