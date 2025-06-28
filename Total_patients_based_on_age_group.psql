@@ -1,0 +1,33 @@
+--total patients based on their age group --
+--
+-- This query filters patients based on their age groups and returns their details.
+
+
+SELECT 
+  FLOOR(EXTRACT(YEAR FROM AGE(date_of_birth)) / 10) * 10 AS age_group,
+  COUNT(*) AS total
+FROM patients
+GROUP BY age_group
+ORDER BY age_group;
+
+
+
+
+-- another way to categorize patients based on their age groups
+-- 0-9, 10-19, 20-29, 30-39, 40-49, 50-59, 60-69, 70+
+-- This query categorizes patients into age groups and counts the number of patients in each group.
+SELECT
+  CASE
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 0 AND 9 THEN '0-9'
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 10 AND 19 THEN '10-19'
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 20 AND 29 THEN '20-29'
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 30 AND 39 THEN '30-39'
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 40 AND 49 THEN '40-49'
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 50 AND 59 THEN '50-59'
+    WHEN EXTRACT(YEAR FROM AGE(date_of_birth)) BETWEEN 60 AND 69 THEN '60-69'
+    ELSE '70+'
+  END AS age_group,
+  COUNT(*) AS total
+FROM patients
+GROUP BY age_group
+ORDER BY age_group;
